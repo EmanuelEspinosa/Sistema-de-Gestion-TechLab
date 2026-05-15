@@ -1,7 +1,5 @@
 package com.techlab.ecommerce;
-
 import java.util.Scanner;
-
 import com.techlab.ecommerce.exception.PedidoNoEncontradoException;
 import com.techlab.ecommerce.exception.ProductoNoEncontradoException;
 import com.techlab.ecommerce.exception.StockInsuficienteException;
