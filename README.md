@@ -44,6 +44,6 @@ En esta etapa se priorizó la correcta organización del código, la reutilizaci
 
 ## Autor
 
-Proyecto realizado por: Emanuel Roberto Espinosa
-Curso: Java Backend - Talento Tech (CABA)
+Proyecto realizado por: Emanuel Roberto Espinosa.
+Curso: Java Backend - Talento Tech. 
 Año: 2026
