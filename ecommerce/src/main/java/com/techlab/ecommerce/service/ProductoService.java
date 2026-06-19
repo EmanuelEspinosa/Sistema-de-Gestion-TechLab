@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import com.techlab.ecommerce.exception.ProductoNoEncontradoException;
 import com.techlab.ecommerce.model.Producto;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProductoService {
     private List<Producto> productos = new ArrayList<>();
     private static int counterId = 1;
