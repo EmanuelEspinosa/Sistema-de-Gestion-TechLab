@@ -26,8 +26,8 @@ public class ProductoController {
     }
 
     @GetMapping
-    public List<Producto> listarProductos(){
-        return service.getListaProductos();
+    public ResponseEntity<List<Producto>> listarProductos(){
+        return ResponseEntity.ok(service.getListaProductos());
     }
 
     @GetMapping("/{id}")
@@ -53,7 +53,6 @@ public class ProductoController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable int id){
