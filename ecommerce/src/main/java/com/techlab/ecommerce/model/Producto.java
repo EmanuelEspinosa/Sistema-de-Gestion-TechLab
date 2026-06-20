@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,13 +26,14 @@ public class Producto {
     @Column(name = "stock", nullable = false)
     private int stock;
 
-    @Column(name = "categoria", length = 50)
-    private String categoria;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     @Column(name = "marca", length = 50)
     private String marca;
 
-    public Producto(String nombre, double precio, int stock, String categoria, String marca){
+    public Producto(String nombre, double precio, int stock, Categoria categoria, String marca){
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
@@ -53,14 +56,15 @@ public class Producto {
     public int getStock() {return stock;}
     public void setStock(int stock) {this.stock = stock;}
 
-    public String getCategoria() {return categoria;}
-    public void setCategoria(String categoria) {this.categoria = categoria;}
+    public Categoria getCategoria() {return categoria;}
+    public void setCategoria(Categoria categoria) {this.categoria = categoria;}
 
     public String getMarca() {return marca;}
     public void setMarca(String marca) {this.marca = marca;}
 
     @Override
     public String toString() {
-        return String.format("ID: %d | %-15s | $%10.2f | Stock: %5d | Categoría: %-10s | Marca: %-15s", id, nombre, precio, stock, categoria, marca);
+        String nombreCtg = (categoria != null) ? categoria.getNombre() : "Sin categoria";
+        return String.format("ID: %d | %-15s | $%10.2f | Stock: %5d | Categoría: %-10s | Marca: %-15s", id, nombre, precio, stock, nombreCtg, marca);
     }
 }
