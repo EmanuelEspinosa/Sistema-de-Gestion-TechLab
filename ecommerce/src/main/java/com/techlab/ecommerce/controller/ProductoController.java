@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techlab.ecommerce.exception.ProductoNoEncontradoException;
@@ -25,6 +26,7 @@ public class ProductoController {
         this.service = service;
     }
 
+    /*MÉTODOS GET */
     @GetMapping
     public ResponseEntity<List<Producto>> listarProductos(){
         return ResponseEntity.ok(service.getListaProductos());
@@ -39,12 +41,47 @@ public class ProductoController {
         }
     }
 
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<Producto>> buscarPorNombre(@PathVariable String nombre){
+        return ResponseEntity.ok(service.buscarPorNombre(nombre));
+    }
+
+    @GetMapping("/categoria/{categoria}")
+    public ResponseEntity<List<Producto>> buscarPorCategoria (@PathVariable String categoria){
+        return ResponseEntity.ok(service.buscarPorCategoria(categoria));
+    }
+
+    /*Endpoint para filtrar por precio. Ejemplo: /productos/filtro-precio?min=10000&max=200000*/
+    @GetMapping("/filtro-precio")
+    public ResponseEntity<List<Producto>> buscarPorRangoPrecio(
+            @RequestParam double min, 
+            @RequestParam double max) {
+        return ResponseEntity.ok(service.listarPorRangoPrecio(min, max));
+    }
+
+    @GetMapping("/stock-bajo/{limite}")
+    public ResponseEntity<List<Producto>> buscarStockBajo(@PathVariable int limite) {
+        return ResponseEntity.ok(service.listarStockBajo(limite));
+    }
+
+    @GetMapping("/marca/{marca}")
+    public ResponseEntity<List<Producto>> buscarPorMarca(@PathVariable String marca) {
+        return ResponseEntity.ok(service.listarPorMarca(marca));
+    }
+
+    @GetMapping("/mas-caro")
+    public ResponseEntity<List<Producto>> buscarMasCaros() {
+        return ResponseEntity.ok(service.obtenerProductosMasCaros());
+    }
+
+    /*MÉTODOS POST */
     @PostMapping("")
     public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto){
         Producto nuevoProducto = service.guardarProducto(producto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoProducto);
     }
 
+    /*MÉTODOS PUT */
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable int id, @RequestBody Producto producto){
         try {
@@ -54,6 +91,7 @@ public class ProductoController {
         }
     }
 
+    /*MÉTODOS DELETE */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable int id){
         try {

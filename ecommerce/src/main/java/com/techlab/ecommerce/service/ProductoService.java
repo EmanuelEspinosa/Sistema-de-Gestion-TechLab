@@ -45,6 +45,52 @@ public class ProductoService {
         repository.delete(getProductoPorId(id));
     }
 
+    public List<Producto> buscarPorNombre(String nombre){
+        return repository.findByNombre(nombre);
+    }
+
+    public List<Producto> buscarPorCategoria(String categoria){
+        return repository.buscarPorCategoria(categoria);
+    }
+
+    /*Obtener productos por rango de precio*/
+    public List<Producto> listarPorRangoPrecio(double min, double max) {
+        if (min < 0 || max < min) {
+            throw new IllegalArgumentException("Los rangos de precio ingresados no son válidos");
+        }
+        return repository.findByPrecioBetween(min, max);
+    }
+
+    /*Alerta de stock bajo*/
+    public List<Producto> listarStockBajo(int stockLimite) {
+        if (stockLimite < 0) {
+            throw new IllegalArgumentException("El límite de stock no puede ser negativo");
+        }
+        return repository.findByStockLessThan(stockLimite);
+    }
+
+    /*Buscar por marca ignorando mayúsculas/minúsculas*/
+    public List<Producto> listarPorMarca(String marca) {
+        if (marca == null || marca.isBlank()) {
+            throw new IllegalArgumentException("La marca no puede estar vacía");
+        }
+        return repository.findByMarcaIgnoreCase(marca);
+    }
+
+    /*Obtener los productos más caros*/
+    public List<Producto> obtenerProductosMasCaros() {
+        return repository.obtenerMasCaros();
+    }
+
+
+
+
+
+
+
+
+
+
     private void validarProducto(Producto p) {
         if (p.getNombre() == null || p.getNombre().isBlank()) {
             throw new IllegalArgumentException("El nombre del producto no puede estar vacio");
