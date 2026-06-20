@@ -1,11 +1,33 @@
 package com.techlab.ecommerce.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "producto")
 public class Producto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "nombre", nullable= false, length = 100)
     private String nombre;
+
+    @Column(name = "precio", nullable = false)
     private double precio;
+
+    @Column(name = "stock", nullable = false)
     private int stock;
+
+    @Column(name = "categoria", length = 50)
     private String categoria;
+
+    @Column(name = "marca", length = 50)
     private String marca;
 
     public Producto(String nombre, double precio, int stock, String categoria, String marca){
@@ -15,6 +37,8 @@ public class Producto {
         this.categoria = categoria;
         this.marca = marca;
     }
+
+    public Producto(){}
 
     //Propiedades de acceso
     public int getId() {return id;}
