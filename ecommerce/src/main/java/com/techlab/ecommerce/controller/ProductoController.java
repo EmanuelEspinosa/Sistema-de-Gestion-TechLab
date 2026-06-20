@@ -17,6 +17,8 @@ import com.techlab.ecommerce.exception.ProductoNoEncontradoException;
 import com.techlab.ecommerce.model.Producto;
 import com.techlab.ecommerce.service.ProductoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
@@ -76,14 +78,14 @@ public class ProductoController {
 
     /*MÉTODOS POST */
     @PostMapping("")
-    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto){
+    public ResponseEntity<Producto> crearProducto(@Valid @RequestBody Producto producto){
         Producto nuevoProducto = service.guardarProducto(producto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoProducto);
     }
 
     /*MÉTODOS PUT */
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizarProducto(@PathVariable int id, @RequestBody Producto producto){
+    public ResponseEntity<Producto> actualizarProducto(@PathVariable int id, @Valid @RequestBody Producto producto){
         try {
             return ResponseEntity.ok(service.actualizarProducto(id, producto));
         } catch (ProductoNoEncontradoException e) {

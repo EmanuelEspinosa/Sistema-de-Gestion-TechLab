@@ -16,6 +16,8 @@ import com.techlab.ecommerce.exception.CategoriaNoEncontradaException;
 import com.techlab.ecommerce.model.Categoria;
 import com.techlab.ecommerce.service.CategoriaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
@@ -40,7 +42,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> crearCategoria(@RequestBody Categoria newCategoria){
+    public ResponseEntity<Categoria> crearCategoria(@Valid @RequestBody Categoria newCategoria){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.guardarCtg(newCategoria));
         } catch (Exception e) {
@@ -49,7 +51,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Categoria> actualizarCategoria(@PathVariable int id, @RequestBody Categoria ctg){
+    public ResponseEntity<Categoria> actualizarCategoria(@PathVariable int id, @Valid @RequestBody Categoria ctg){
         try {
             return ResponseEntity.ok(service.actualizarCtg(id, ctg));
         } catch (CategoriaNoEncontradaException e) {

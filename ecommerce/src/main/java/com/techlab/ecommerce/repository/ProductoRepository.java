@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.techlab.ecommerce.model.Producto;
 
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
-    List<Producto> findByNombre(String nombre);
+    List<Producto> findByNombreContaining(String nombre);
 
     @Query("SELECT p FROM Producto p WHERE p.categoria.nombre = :nombreCategoria")
     List<Producto> buscarPorCategoria(@Param("nombreCategoria") String nombreCategoria);

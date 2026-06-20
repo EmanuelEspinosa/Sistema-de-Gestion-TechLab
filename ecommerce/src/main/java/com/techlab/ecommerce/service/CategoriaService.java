@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.techlab.ecommerce.exception.CategoriaNoEncontradaException;
-import com.techlab.ecommerce.exception.CategoriaNombreInvalidoException;
+// import com.techlab.ecommerce.exception.CategoriaNombreInvalidoException;
 import com.techlab.ecommerce.model.Categoria;
 import com.techlab.ecommerce.repository.CategoriaRepository;
 
@@ -18,7 +18,7 @@ public class CategoriaService {
     }
 
     public Categoria guardarCtg(Categoria ctg){
-        validarCtg(ctg);
+        //validarCtg(ctg);
         return repository.save(ctg);
     }
 
@@ -31,7 +31,7 @@ public class CategoriaService {
     }
 
     public Categoria actualizarCtg(int id, Categoria ctg){
-        validarCtg(ctg);
+        //validarCtg(ctg);
         return repository.save(categoriaActualizada(id, ctg));
     }
 
@@ -39,11 +39,11 @@ public class CategoriaService {
         repository.delete(obtenerPorId(id));
     }
 
-    private void validarCtg(Categoria ctg){
-        if(ctg.getNombre() == null || ctg.getNombre().isBlank()){
-            throw new CategoriaNombreInvalidoException("El nombre de la categoria no puede estar vacio");
-        }
-    }
+    // private void validarCtg(Categoria ctg){
+    //     if(ctg.getNombre() == null || ctg.getNombre().isBlank()){
+    //         throw new CategoriaNombreInvalidoException("El nombre de la categoria no puede estar vacio");
+    //     }
+    // }
 
     private Categoria categoriaActualizada(int id, Categoria categ){
         Categoria c = obtenerPorId(id);
