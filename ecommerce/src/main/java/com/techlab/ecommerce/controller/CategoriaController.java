@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techlab.ecommerce.exception.CategoriaNoEncontradaException;
 import com.techlab.ecommerce.model.Categoria;
 import com.techlab.ecommerce.service.CategoriaService;
 
@@ -34,28 +33,16 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Categoria> obtenerCategoria(@PathVariable int id){
-        try {
-            return ResponseEntity.ok(service.obtenerPorId(id));
-        } catch (CategoriaNoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.obtenerPorId(id));
     }
 
     @PostMapping
     public ResponseEntity<Categoria> crearCategoria(@Valid @RequestBody Categoria newCategoria){
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.guardarCtg(newCategoria));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.guardarCtg(newCategoria));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> actualizarCategoria(@PathVariable int id, @Valid @RequestBody Categoria ctg){
-        try {
-            return ResponseEntity.ok(service.actualizarCtg(id, ctg));
-        } catch (CategoriaNoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.actualizarCtg(id, ctg));
     }
 }

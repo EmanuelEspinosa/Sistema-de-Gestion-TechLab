@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techlab.ecommerce.exception.ProductoNoEncontradoException;
 import com.techlab.ecommerce.model.Producto;
 import com.techlab.ecommerce.service.ProductoService;
 
@@ -21,6 +21,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/productos")
+@CrossOrigin(origins = "http://localhost:5500")
 public class ProductoController {
     private final ProductoService service;
 
@@ -36,11 +37,7 @@ public class ProductoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Producto> obtenerProducto(@PathVariable int id){
-        try {
-            return ResponseEntity.ok(service.getProductoPorId(id));
-        } catch (ProductoNoEncontradoException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.getProductoPorId(id));
     }
 
     @GetMapping("/nombre/{nombre}")
@@ -86,21 +83,13 @@ public class ProductoController {
     /*MÉTODOS PUT */
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable int id, @Valid @RequestBody Producto producto){
-        try {
-            return ResponseEntity.ok(service.actualizarProducto(id, producto));
-        } catch (ProductoNoEncontradoException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.actualizarProducto(id, producto));
     }
 
     /*MÉTODOS DELETE */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable int id){
-        try {
-            service.eliminarProducto(id);
-            return ResponseEntity.ok().build();
-        } catch (ProductoNoEncontradoException e) {
-            return ResponseEntity.notFound().build();
-        }
+        service.eliminarProducto(id);
+        return ResponseEntity.ok().build();
     }
 }
