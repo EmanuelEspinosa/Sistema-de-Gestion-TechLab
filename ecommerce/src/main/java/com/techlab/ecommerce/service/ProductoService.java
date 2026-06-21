@@ -75,7 +75,11 @@ public class ProductoService {
         if (marca == null || marca.isBlank()) {
             throw new IllegalArgumentException("La marca no puede estar vacía");
         }
-        return repository.findByMarcaIgnoreCase(marca);
+        List<Producto> productos = repository.findByMarcaIgnoreCase(marca);
+        if (productos.isEmpty()) {
+            throw new ProductoNoEncontradoException(String.format("No se encontraron productos con la marca %s", marca));
+        }
+        return productos;
     }
 
     /* Obtener los productos más caros */

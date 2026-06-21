@@ -34,6 +34,7 @@ public class Producto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
+    @NotBlank(message = "La marca del producto no puede estar vacia")
     @Column(name = "marca", length = 50)
     private String marca;
 
