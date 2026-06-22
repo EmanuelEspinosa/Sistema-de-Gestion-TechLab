@@ -38,12 +38,20 @@ public class Producto {
     @Column(name = "marca", length = 50)
     private String marca;
 
-    public Producto(String nombre, double precio, int stock, Categoria categoria, String marca){
+    @Column(name = "descripcion", length = 700)
+    private String descripcion;
+
+    @Column(name = "url_imagen", length = 700)
+    private String urlImagen;
+
+    public Producto(String nombre, double precio, int stock, Categoria categoria, String descripcion,String marca, String urlImagen){
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
         this.categoria = categoria;
         this.marca = marca;
+        this.descripcion = descripcion;
+        this.urlImagen = urlImagen;
     }
 
     public Producto(){}
@@ -67,6 +75,13 @@ public class Producto {
     public String getMarca() {return marca;}
     public void setMarca(String marca) {this.marca = marca;}
 
+    public String getDescripcion() {return descripcion;}
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
+
+    public String getUrlImagen() {return urlImagen;}
+    public void setUrlImagen(String urlImagen) {this.urlImagen = urlImagen;}
+
+    
     @Override
     public String toString() {
         String nombreCtg = (categoria != null) ? categoria.getNombre() : "Sin categoria";
