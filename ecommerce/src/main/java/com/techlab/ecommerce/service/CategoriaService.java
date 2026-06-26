@@ -39,12 +39,6 @@ public class CategoriaService {
         repository.delete(obtenerPorId(id));
     }
 
-    // private void validarCtg(Categoria ctg){
-    //     if(ctg.getNombre() == null || ctg.getNombre().isBlank()){
-    //         throw new CategoriaNombreInvalidoException("El nombre de la categoria no puede estar vacio");
-    //     }
-    // }
-
     private Categoria categoriaActualizada(int id, Categoria categ){
         Categoria c = obtenerPorId(id);
         c.setNombre(categ.getNombre());

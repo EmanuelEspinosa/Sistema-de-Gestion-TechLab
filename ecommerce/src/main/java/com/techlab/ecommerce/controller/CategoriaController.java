@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,5 +45,11 @@ public class CategoriaController {
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> actualizarCategoria(@PathVariable int id, @Valid @RequestBody Categoria ctg){
         return ResponseEntity.ok(service.actualizarCtg(id, ctg));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarCategoria(@PathVariable int id) {
+        service.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }

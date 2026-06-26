@@ -65,13 +65,13 @@ Para interactuar con la API mediante peticiones POST, se deben enviar los datos 
 ```json
 {
   "nombre": "Nombre del Producto",
-  "precio": precio en formato entero o decimal,
+  "precio": 1,
   "marca": "Marca",
   "categoria": {
-    "id": id de la categoria (en formato nuemerico)
+    "id": 1
   },
   "descripcion": "Descripción detallada",
-  "stock": Cantidad numerica,
+  "stock": 1,
   "urlImagen": "URL de la imagen"
 }
 ```
@@ -89,8 +89,8 @@ Para interactuar con la API mediante peticiones POST, se deben enviar los datos 
 {
   "lineas": [
     {
-      "producto": { "id": Id del producto (en formato numerico), "precio": 0.0, "stock": 0 },
-      "cantidad": cantidad numerica
+      "producto": { "id": 1, "precio": 0.0, "stock": 0 },
+      "cantidad": 1
     },
     ...
   ]
@@ -105,6 +105,7 @@ Para interactuar con la API mediante peticiones POST, se deben enviar los datos 
 | `GET` | `/categorias/{id}` | Obtiene una categoría específica por ID. |
 | `POST` | `/categorias` | Crea una nueva categoría para clasificar productos. |
 | `PUT` | `/categorias/{id}` | Modifica los datos de una categoría existente por su ID.|
+| `DELETE` | `/categorias/{id}` | Elimina físicamente una categoría del listado por su ID.|
 
 Para interactuar con la API mediante peticiones POST, se deben enviar los datos de la categoria en formato JSON según la siguiente estructura:
 ```json
@@ -114,10 +115,48 @@ Para interactuar con la API mediante peticiones POST, se deben enviar los datos 
 }
 ```
 
+## Estructura final del proyecto
+
+```text
+com.techlab.ecommerce
+├── config
+│   └── WebConfig.java
+├── controller
+│   ├── ProductoController.java
+│   ├── CategoriaController.java
+│   └── PedidoController.java
+├── exception
+│   ├── GlobalExceptionHandler.java
+│   ├── PedidoNoEncontradoException.java
+│   ├── CategoriaNoEncontradaException.java
+│   ├── CategoriaNombreInvalidoException.java
+│   ├── ProductoNoEncontradoException.java
+|   ├── PrecioInvalidoException.java
+│   └── StockInsuficienteException.java
+├── model
+│   ├── Producto.java
+│   ├── Categoria.java
+|   ├── Pedido.java
+│   └── LineaPedido.java
+├── repository
+│   ├── ProductoRepository.java
+│   ├── CategoriaRepository.java
+│   └── PedidoRepository.java
+├── service
+│   ├── ProductoService.java
+│   ├── CategoriaService.java
+│   └── PedidoService.java
+└── EcommerceApplication.java
+```
+
+## Capa de Presentación (Frontend)
+Para realizar las pruebas operativas y la validación de los endpoints transaccionales, se desarrolló una interfaz cliente desacoplada de forma complementaria. 
+
+El código fuente de este cliente web (HTML5, Bootstrap 5 y JavaScript ES6) se encuentra alojado en su propio repositorio independiente para mantener la separación de responsabilidades: https://github.com/EmanuelEspinosa/TechLab-Interfaz-Cliente.git
+
+
 ## Autor
 
-Proyecto realizado por: Emanuel Roberto Espinosa.
-
-Curso: Java Backend - Talento Tech. 
-
+Proyecto realizado por: Emanuel Roberto Espinosa.  
+Curso: Java Backend - Talento Tech.  
 Año: 2026
